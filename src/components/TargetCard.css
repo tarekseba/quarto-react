@@ -1,0 +1,26 @@
+.target-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #28282865;
+    font-size: 3rem;
+    color: #fff;
+    -webkit-box-shadow: inset 0 8px 4px -4px rgb(0, 0, 0);
+      -moz-box-shadow: inset 0 8px 4px -4px rgb(0, 0, 0);
+      box-shadow: inset 0 8px 5px -9px rgb(0, 0, 0);
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+    transition: all 500ms;
+    overflow: hidden;
+  
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  .target-card:hover {
+      outline: 1px solid rgb(100, 189, 100);
+      animation: outline ease-in-out 500ms;
+  }

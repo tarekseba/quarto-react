@@ -1,0 +1,24 @@
+.holder-card {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #f8f4f465;
+    font-size: 3rem;
+    color: #fff;
+    -webkit-box-shadow: inset 0 8px 4px -4px rgb(0, 0, 0);
+      -moz-box-shadow: inset 0 8px 4px -4px rgb(0, 0, 0);
+      box-shadow: inset 0 8px 5px -9px rgb(0, 0, 0);
+    height: 100px;
+    width: 100px;
+    top: 45%;
+    left: -35%;
+    border-radius: 4px;
+    transition: all 500ms;
+    overflow: hidden;
+  
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
