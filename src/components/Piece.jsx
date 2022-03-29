@@ -33,9 +33,10 @@ const Piece = (props) => {
     <div
       id={props.keyId}
       className="piece"
+      draggable={props.draggable ? true : false}
       style={{
         display: isDragged ? "none" : "block",
-        cursor: props.draggable ? "-webkit-grab" : "default",
+        cursor: "pointer",
       }}
       onDrag={onDragStartHandler}
       onDragStart={

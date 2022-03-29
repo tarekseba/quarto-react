@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import "./TargetCard.css";
 
-const TargetCard = () => {
+const TargetCard = (props) => {
   const [isEmpty, setIsEmpty] = useState(true);
   const [isOver, setIsOver] = useState(false);
   const onDragEnterHandler = useCallback(
@@ -11,13 +11,10 @@ const TargetCard = () => {
     },
     [isEmpty]
   );
-  const onDragLeaveHandler = useCallback(
-    (event) => {
-      event.preventDefault();
-      setIsOver(false);
-    },
-    []
-  );
+  const onDragLeaveHandler = useCallback((event) => {
+    event.preventDefault();
+    setIsOver(false);
+  }, []);
   const onDropHandler = useCallback(
     (event) => {
       event.preventDefault();
@@ -47,7 +44,9 @@ const TargetCard = () => {
       onDragOver={onDragOverHandler}
       onDragLeave={onDragLeaveHandler}
       onDrop={onDropHandler}
-    ></div>
+    >
+      {true && <div className={`${props.isTrue ? "hhh" : "hahahah"}`}></div>}
+    </div>
   );
 };
 
