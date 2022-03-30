@@ -1,14 +1,15 @@
-import SourceCard from "./SourceCard";
 import "./Grid.css";
 import Board from "./Board";
 import HolderCard from "./HolderCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import SourceCard from "./SourceCard";
 
 const Grid = (props) => {
-  const [isHolding, setIsHolding] = useState(false);
+  const game = useSelector((state) => state.game);
   return (
     <div className="animated-grid">
-      <SourceCard setIsHolding={setIsHolding} area={"a"}></SourceCard>
+      {/* <SourceCard setIsHolding={setIsHolding} area={"a"}></SourceCard>
       <SourceCard setIsHolding={setIsHolding} area={"b"}></SourceCard>
       <SourceCard setIsHolding={setIsHolding} area={"c"}></SourceCard>
       <SourceCard setIsHolding={setIsHolding} area={"d"}></SourceCard>
@@ -51,9 +52,30 @@ const Grid = (props) => {
         setIsHolding={setIsHolding}
         area={"p"}
         keyId="15"
-      ></SourceCard>
+      ></SourceCard> */}
+      {game.availablePieces.map((row, rowIndex) =>
+        row.map((piece, columnIndex) =>
+          piece.available ? (
+            <SourceCard
+              key={
+                "" +
+                piece.piece.hollow +
+                piece.piece.shape +
+                piece.piece.size +
+                piece.piece.color
+              }
+              available={piece.available}
+              piece={piece.piece}
+              column={columnIndex}
+              row={rowIndex}
+            ></SourceCard>
+          ) : (
+            <></>
+          )
+        )
+      )}
       <Board></Board>
-      <HolderCard isHolding={isHolding}></HolderCard>
+      <HolderCard placeholder={game.placeholder}></HolderCard>
     </div>
   );
 };
