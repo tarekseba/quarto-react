@@ -1,0 +1,68 @@
+.indic__container {
+  position: relative;
+  width: 45px;
+  height: 45px;
+}
+
+.my__toggle {
+  width: 40px;
+  height: 20px;
+  border-radius: 10px;
+  position: relative;
+  transition: all 500ms ease-in-out;
+}
+.indic__container > input {
+  opacity: 0%;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  z-index: 1;
+  position: absolute;
+}
+
+.label-class {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+}
+
+.my__toggle > div {
+  box-sizing: border-box;
+  border: 2px solid black;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: rgb(79, 219, 133);
+  border-radius: 10px;
+  position: absolute;
+  transition: all ease-in-out 500ms;
+}
+
+.indic__container > input:checked + label > div > div {
+  transform: translateX(20px);
+  background-color: rgb(185, 78, 78);
+}
+
+.indic__container > input:checked + label > div {
+  background-color: rgb(236, 202, 202);
+  outline: 2.5px solid rgb(185, 78, 78);
+  animation: lol ease-in-out 500ms;
+}
+.indic__container > input:not(:checked) + label > div {
+  background-color: rgb(168, 221, 194);
+  outline: 2.5px solid rgb(23, 128, 63);
+  animation: lol reverse ease-in-out 500ms;
+}
+
+@keyframes lol {
+  0% {
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    outline: 2.5px solid rgb(185, 78, 78);
+    transform: scale(1);
+  }
+}

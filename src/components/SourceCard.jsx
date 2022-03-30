@@ -1,26 +1,26 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import Piece from "./Piece";
 import "./SourceCard.css";
 import { gameActions } from "../store/game";
 const SourceCard = (props) => {
-  const [isVisible, setIsVisible] = useState(true);
   const dispatch = useDispatch();
-  const { column, row, piece, available } = props;
+  const { column, row, piece, available, chooseTurn, playTurn } = props;
   const dblckickHandler = () => {
-    dispatch(gameActions.setPlaceholder({ isHolding: true, piece }));
+    if (chooseTurn) {
+      dispatch(gameActions.setPlaceholder({ isHolding: true, piece }));
+      dispatch(gameActions.removeAvailablePiece({ column, row }));
+      dispatch(gameActions.setChooseTurn(false));
+    }
   };
   return (
     <>
-      {available && (
-        <div
-          className="card"
-          style={{ gridArea: props.area }}
-          onDoubleClick={dblckickHandler}
-        >
-          <Piece keyId={props.keyId} piece={props.piece}></Piece>
-        </div>
-      )}
+      <div
+        className="card"
+        style={{ gridArea: props.area }}
+        onDoubleClick={dblckickHandler}
+      >
+        {available && <Piece keyId={props.keyId} piece={props.piece}></Piece>}
+      </div>
     </>
   );
 };

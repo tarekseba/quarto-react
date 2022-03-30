@@ -4,28 +4,28 @@ import { SHAPE, SIZE, COLOR } from "../utils/types";
 const initialState = {
   grid: [
     [
-      { occupied: false, piece: null },
-      { occupied: false, piece: null },
-      { occupied: false, piece: null },
-      { occupied: false, piece: null },
+      { occupied: false, id: 1, piece: null },
+      { occupied: false, id: 2, piece: null },
+      { occupied: false, id: 3, piece: null },
+      { occupied: false, id: 4, piece: null },
     ],
     [
-      { occupied: false, piece: null },
-      { occupied: false, piece: null },
-      { occupied: false, piece: null },
-      { occupied: false, piece: null },
+      { occupied: false, id: 5, piece: null },
+      { occupied: false, id: 6, piece: null },
+      { occupied: false, id: 7, piece: null },
+      { occupied: false, id: 8, piece: null },
     ],
     [
-      { occupied: false, piece: null },
-      { occupied: false, piece: null },
-      { occupied: false, piece: null },
-      { occupied: false, piece: null },
+      { occupied: false, id: 9, piece: null },
+      { occupied: false, id: 10, piece: null },
+      { occupied: false, id: 11, piece: null },
+      { occupied: false, id: 12, piece: null },
     ],
     [
-      { occupied: false, piece: null },
-      { occupied: false, piece: null },
-      { occupied: false, piece: null },
-      { occupied: false, piece: null },
+      { occupied: false, id: 13, piece: null },
+      { occupied: false, id: 14, piece: null },
+      { occupied: false, id: 15, piece: null },
+      { occupied: false, id: 16, piece: null },
     ],
   ],
   availablePieces: [
@@ -183,21 +183,39 @@ const initialState = {
     ],
   ],
   placeholder: { isHolding: false, piece: null },
-  turn: true,
+  chooseTurn: true,
+  playTurn: false,
+  gameOver: false,
 };
 
 const gameSlice = createSlice({
   name: "game",
   initialState: initialState,
   reducers: {
-    // setPiece: (state, action) => {
-    //   state[action.payload.index] = {
-    //     occupied: true,
-    //     piece: action.payload.piece,
-    //   };
-    // },
+    setGridPiece: (state, action) => {
+      const { row, column } = action.payload;
+      state.grid[row][column] = {
+        occupied: true,
+        id: state.grid[row][column].id,
+        piece: state.placeholder.piece,
+      };
+    },
+    removeAvailablePiece: (state, action) => {
+      state.availablePieces[action.payload.row][
+        action.payload.column
+      ].available = false;
+    },
     setPlaceholder: (state, action) => {
       state.placeholder = action.payload;
+    },
+    initPlaceholder: (state) => {
+      state.placeholder = { isHolding: false, piece: null };
+    },
+    setPlayTurn: (state, action) => {
+      state.playTurn = action.payload;
+    },
+    setChooseTurn: (state, action) => {
+      state.chooseTurn = action.payload;
     },
   },
 });

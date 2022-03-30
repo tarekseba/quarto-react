@@ -1,12 +1,13 @@
 import "./Grid.css";
 import Board from "./Board";
 import HolderCard from "./HolderCard";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import SourceCard from "./SourceCard";
+import PlayIndicator from "./UI/PlayIndicator";
 
 const Grid = (props) => {
   const game = useSelector((state) => state.game);
+  console.log("chooseTurn" + game.chooseTurn);
   return (
     <div className="animated-grid">
       {/* <SourceCard setIsHolding={setIsHolding} area={"a"}></SourceCard>
@@ -54,28 +55,36 @@ const Grid = (props) => {
         keyId="15"
       ></SourceCard> */}
       {game.availablePieces.map((row, rowIndex) =>
-        row.map((piece, columnIndex) =>
-          piece.available ? (
-            <SourceCard
-              key={
-                "" +
-                piece.piece.hollow +
-                piece.piece.shape +
-                piece.piece.size +
-                piece.piece.color
-              }
-              available={piece.available}
-              piece={piece.piece}
-              column={columnIndex}
-              row={rowIndex}
-            ></SourceCard>
-          ) : (
-            <></>
-          )
-        )
+        row.map((piece, columnIndex) => (
+          <SourceCard
+            key={
+              "" +
+              piece.piece.hollow +
+              piece.piece.shape +
+              piece.piece.size +
+              piece.piece.color
+            }
+            available={piece.available}
+            piece={piece.piece}
+            column={columnIndex}
+            row={rowIndex}
+            chooseTurn={game.chooseTurn}
+            playTurn={game.playTurn}
+          ></SourceCard>
+        ))
       )}
       <Board></Board>
       <HolderCard placeholder={game.placeholder}></HolderCard>
+      <div className="indicators__container">
+        <div className="indicator">
+          <h4 style={{ color: "white" }}>Choose piece</h4>
+          <PlayIndicator checked={!game.chooseTurn}></PlayIndicator>
+        </div>
+        <div className="indicator">
+          <h4 style={{ color: "white" }}>Place piece</h4>
+          <PlayIndicator checked={!game.playTurn}></PlayIndicator>
+        </div>
+      </div>
     </div>
   );
 };
