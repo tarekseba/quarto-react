@@ -1,0 +1,28 @@
+.modal__content {
+  width: 50vw;
+  height: 25vh;
+  background-image: linear-gradient(180deg, orange, rgba(0, 0, 0, 0.8) 90%);
+  box-shadow: 0 0 12px 3px #ffa50066;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h3 {
+    overflow: hidden;
+    color: white;
+    animation: apparition 1s infinite ease-out;
+}
+
+@keyframes apparition {
+    from {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(-10px);
+        opacity: 1;
+    }
+}

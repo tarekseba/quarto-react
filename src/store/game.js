@@ -194,6 +194,15 @@ const gameSlice = createSlice({
   name: "game",
   initialState: initialState,
   reducers: {
+    resetGame: (state) => {
+      state.grid = initialState.grid;
+      state.availablePieces = initialState.availablePieces;
+      state.availablePiecesCount = 12;
+      state.gameOver = false;
+      state.playTurn = initialState.playTurn;
+      state.placeholder = initialState.placeholder;
+      state.chooseTurn = initialState.chooseTurn;
+    },
     setGridPiece: (state, action) => {
       const { row, column } = action.payload;
       state.grid[row][column] = {

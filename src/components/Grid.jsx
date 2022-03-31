@@ -4,11 +4,13 @@ import HolderCard from "./HolderCard";
 import { useSelector } from "react-redux";
 import SourceCard from "./SourceCard";
 import PlayIndicator from "./UI/PlayIndicator";
+import GoModal from "./GoModal/GoModal";
 
 const Grid = (props) => {
   const game = useSelector((state) => state.game);
   return (
     <div className="animated-grid">
+      {game.gameOver && <GoModal></GoModal>}
       {game.availablePieces.map((row, rowIndex) =>
         row.map((piece, columnIndex) => (
           <SourceCard
@@ -34,11 +36,11 @@ const Grid = (props) => {
       ></HolderCard>
       <div className="indicators__container">
         <div className="indicator">
-          <h4 style={{ color: "white" }}>Choose piece</h4>
+          <h5 style={{ color: "white" }}>Choose piece</h5>
           <PlayIndicator checked={!game.chooseTurn}></PlayIndicator>
         </div>
         <div className="indicator">
-          <h4 style={{ color: "white" }}>Place piece</h4>
+          <h5 style={{ color: "white" }}>Place piece</h5>
           <PlayIndicator checked={!game.playTurn}></PlayIndicator>
         </div>
       </div>
