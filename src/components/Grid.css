@@ -12,7 +12,6 @@
   display: grid;
   gap: 1rem;
 
-  /* Explicit grid */
   grid-template-areas:
     "a  b  c  d"
     "e  f  g  h"

@@ -4,11 +4,12 @@ import "./SourceCard.css";
 import { gameActions } from "../store/game";
 const SourceCard = (props) => {
   const dispatch = useDispatch();
-  const { column, row, piece, available, chooseTurn, playTurn } = props;
+  const { column, row, piece, available, chooseTurn } = props;
   const dblckickHandler = () => {
     if (chooseTurn) {
       dispatch(gameActions.setPlaceholder({ isHolding: true, piece }));
       dispatch(gameActions.removeAvailablePiece({ column, row }));
+      dispatch(gameActions.decrementAvailablePiecesCount());
       dispatch(gameActions.setChooseTurn(false));
     }
   };

@@ -7,8 +7,7 @@ import "./TargetCard.css";
 const TargetCard = (props) => {
   const { occupied, piece, row, column } = props;
   const dispatch = useDispatch();
-  const { placeholder } = useSelector((state) => state.game);
-  console.log(placeholder.isHolding);
+  const { placeholder, playTurn } = useSelector((state) => state.game);
   const [isOver, setIsOver] = useState(false);
   const onDragEnterHandler = useCallback(
     (event) => {
@@ -23,7 +22,7 @@ const TargetCard = (props) => {
   }, []);
   const onDropHandler = (event) => {
     event.preventDefault();
-    if (!occupied && placeholder.isHolding) {
+    if (!occupied && /*playTurn*/ true && placeholder.isHolding) {
       dispatch(gameActions.setGridPiece({ column, row }));
       dispatch(gameActions.initPlaceholder());
       dispatch(gameActions.setPlayTurn(false));
@@ -40,8 +39,6 @@ const TargetCard = (props) => {
     }
     setIsOver(false);
   };
-
-  console.log(piece);
 
   const onDragOverHandler = useCallback((event) => {
     event.preventDefault();

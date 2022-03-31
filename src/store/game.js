@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { SHAPE, SIZE, COLOR } from "../utils/types";
+import { gameOverSolver } from "../utils/solvers";
 
 const initialState = {
   grid: [
@@ -184,8 +185,9 @@ const initialState = {
   ],
   placeholder: { isHolding: false, piece: null },
   chooseTurn: true,
-  playTurn: false,
+  playTurn: true,
   gameOver: false,
+  availablePiecesCount: 12,
 };
 
 const gameSlice = createSlice({
@@ -199,6 +201,7 @@ const gameSlice = createSlice({
         id: state.grid[row][column].id,
         piece: state.placeholder.piece,
       };
+      state.gameOver = gameOverSolver(state.grid, state.availablePiecesCount);
     },
     removeAvailablePiece: (state, action) => {
       state.availablePieces[action.payload.row][
@@ -216,6 +219,9 @@ const gameSlice = createSlice({
     },
     setChooseTurn: (state, action) => {
       state.chooseTurn = action.payload;
+    },
+    decrementAvailablePiecesCount: (state) => {
+      state.availablePiecesCount -= 1;
     },
   },
 });

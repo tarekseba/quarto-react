@@ -20,7 +20,6 @@ const constructPiece = (piece) => {
 };
 
 const Piece = (props) => {
-  console.log("piece rerender");
   return (
     <div
       className={"piece " + constructPiece(props.piece)}

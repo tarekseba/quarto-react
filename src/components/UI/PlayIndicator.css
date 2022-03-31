@@ -52,7 +52,7 @@
 .indic__container > input:not(:checked) + label > div {
   background-color: rgb(168, 221, 194);
   outline: 2.5px solid rgb(23, 128, 63);
-  animation: lol reverse ease-in-out 500ms;
+  animation: lol reverse ease-in-out 500ms, pulseIndicator 800ms ease-in-out infinite;
 }
 
 @keyframes lol {
@@ -64,5 +64,14 @@
   100% {
     outline: 2.5px solid rgb(185, 78, 78);
     transform: scale(1);
+  }
+}
+
+@keyframes pulseIndicator {
+  from {
+    box-shadow: 0 0 0 0 rgba(79, 219, 133, 1);
+  }
+  to {
+    box-shadow: 0 0 0 8px rgba(79, 219, 133, 0.1);
   }
 }

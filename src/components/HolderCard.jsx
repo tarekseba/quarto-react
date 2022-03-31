@@ -1,11 +1,16 @@
 import "./HolderCard.css";
 import Piece from "./Piece";
 const HolderCard = (props) => {
-  const { placeholder } = props;
+  const { placeholder, playTurn } = props;
   return (
-    <div className="holder-card">
+    <div
+      className="holder-card"
+      style={{
+        animation: playTurn ? "pulse ease-in-out 800ms infinite" : "none",
+      }}
+    >
       {placeholder.isHolding && (
-        <Piece draggable={true} piece={placeholder.piece}></Piece>
+        <Piece draggable={playTurn} piece={placeholder.piece}></Piece>
       )}
     </div>
   );
