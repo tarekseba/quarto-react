@@ -3,14 +3,22 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Board from "./components/Board";
+import { useDispatch, useSelector } from "react-redux";
+import GoModal from "./components/GoModal/GoModal";
+import GoModalResetContent from "./components/GoModal/GoModalContent/GoModalResetContent";
 
 function App() {
+  const { resetModal } = useSelector((state) => state.game);
+  const dispatch = useDispatch();
   return (
     <>
+      {resetModal && (
+        <GoModal Content={GoModalResetContent} close={dispatch}></GoModal>
+      )}
       <Routes>
-        <Route exact path="/" element={<Grid/>}></Route>
-        <Route path="lol" element={<div>LOOL</div>}/>
-        <Route path="/about" element={<Board/>}></Route>
+        <Route exact path="/" element={<Grid />}></Route>
+        <Route path="lol" element={<div>LOOL</div>} />
+        <Route path="/about" element={<Board />}></Route>
       </Routes>
       <Navbar></Navbar>
     </>

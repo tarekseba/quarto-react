@@ -187,7 +187,8 @@ const initialState = {
   chooseTurn: true,
   playTurn: true,
   gameOver: false,
-  availablePiecesCount: 12,
+  resetModal: false,
+  availablePiecesCount: 16,
 };
 
 const gameSlice = createSlice({
@@ -210,7 +211,7 @@ const gameSlice = createSlice({
         id: state.grid[row][column].id,
         piece: state.placeholder.piece,
       };
-      state.gameOver = gameOverSolver(state.grid, state.availablePiecesCount);
+      state.gameOver = gameOverSolver(state.grid, state.availablePieces);
     },
     removeAvailablePiece: (state, action) => {
       state.availablePieces[action.payload.row][
@@ -228,6 +229,9 @@ const gameSlice = createSlice({
     },
     setChooseTurn: (state, action) => {
       state.chooseTurn = action.payload;
+    },
+    setResetModal: (state) => {
+      state.resetModal = !state.resetModal;
     },
     decrementAvailablePiecesCount: (state) => {
       state.availablePiecesCount -= 1;

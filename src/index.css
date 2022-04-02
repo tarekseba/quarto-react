@@ -16,8 +16,8 @@ ul li {
 }
 
 body {
-  background: rgb(49, 49, 49);
-  color: #fff;
+  background: rgb(191, 191, 191);
+  filter: drop-shadow(0 0 5px coral);
   font-family: "Noto Sans", sans-serif;
   padding: 0;
   margin: 0;
@@ -34,4 +34,8 @@ h5 {
 
 h2 {
   letter-spacing: 5px;
+}
+
+#svgFilter {
+  display: none;
 }

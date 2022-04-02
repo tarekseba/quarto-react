@@ -83,9 +83,11 @@ export const gameOverSolver = (grid, availablePiecesCount) => {
   }
 
   if (grid[0][3].occupied) {
+    console.log("diagonal 2");
     const piece = grid[0][3].piece;
     let properties = constructProperties(piece);
     for (let i = 2; i >= 0; i--) {
+      console.log(i);
       if (grid[3 - i][i].occupied) {
         let currentProperties = constructProperties(grid[3 - i][i].piece);
         properties = properties.filter((property) =>
@@ -104,4 +106,5 @@ export const gameOverSolver = (grid, availablePiecesCount) => {
       console.log("Game is still going!!");
     }
   }
+  return false;
 };

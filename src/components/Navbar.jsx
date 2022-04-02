@@ -1,14 +1,17 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
+import { gameActions } from "../store/game";
 import "./Navbar.css";
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
+  const dispatch = useDispatch();
   const location = useLocation();
   console.log(location.pathname === "/");
-  let ballTop = 71;
-  if (location.pathname === "/lol") ballTop += 45;
+  let ballTop = 70;
+  if (location.pathname === "/lol") ballTop += 45 + 45;
   if (location.pathname === "/about") ballTop = 938;
-  // 116px => + 45
+  // 116px => + 42.5
   return (
     <div className={`nav ${toggle && "nav_toggled"}`}>
       <hr className="separator"></hr>
@@ -20,7 +23,7 @@ const Navbar = () => {
             width: toggle ? "5.5rem" : "0px",
           }}
         >
-          QUATRO
+          QUARTO
         </h5>
         <a className="nav__item" onClick={() => setToggle((state) => !state)}>
           <i className="fa-solid fa-angles-right"></i>
@@ -30,11 +33,11 @@ const Navbar = () => {
       <NavLink
         to="/"
         className={`item__container ${
-          location.pathname == "/" ? "selected" : ""
+          location.pathname === "/" ? "selected" : ""
         }`}
         style={({ isActive }) => ({
           textDecoration: "none",
-          transform: isActive && "translateX(+10px)",
+          transform: isActive && "translateX(+12px)",
         })}
       >
         <h6
@@ -43,10 +46,24 @@ const Navbar = () => {
             width: toggle ? "5.5rem" : "0px",
           }}
         >
-          NEW GAME
+          PLAY
         </h6>
         <i className="fa-solid fa-circle-play icon"></i>
       </NavLink>
+      <a
+        className={`item__container`}
+        onClick={() => dispatch(gameActions.setResetModal())}
+      >
+        <h6
+          style={{
+            opacity: toggle ? "1" : "0",
+            width: toggle ? "5.5rem" : "0px",
+          }}
+        >
+          RESET
+        </h6>
+        <i className="fa-solid fa-repeat icon"></i>
+      </a>
       <NavLink
         to="/lol"
         className={`item__container ${
@@ -54,19 +71,19 @@ const Navbar = () => {
         }`}
         style={({ isActive }) =>
           isActive
-            ? { transform: "translateX(10px)", textDecoration: "none" }
+            ? { transform: "translateX(12px)", textDecoration: "none" }
             : { textDecoration: "none" }
         }
       >
         <h6
           style={{
             opacity: toggle ? "1" : "0",
-            width: toggle ? "6.2rem" : "0px",
+            width: toggle ? "6.19rem" : "0px",
           }}
         >
           DIFFICULTY
         </h6>
-        <i class="fa-solid fa-vial icon"></i>
+        <i className="fa-solid fa-vial icon"></i>
       </NavLink>
       <NavLink
         to="/about"
@@ -76,7 +93,7 @@ const Navbar = () => {
         style={({ isActive }) => ({
           marginTop: "auto",
           marginBottom: "1rem",
-          transform: isActive && "translateX(+10px)",
+          transform: isActive && "translateX(+12px)",
           textDecoration: "none",
         })}
       >
