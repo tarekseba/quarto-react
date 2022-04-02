@@ -6,6 +6,7 @@ import Board from "./components/Board";
 import { useDispatch, useSelector } from "react-redux";
 import GoModal from "./components/GoModal/GoModal";
 import GoModalResetContent from "./components/GoModal/GoModalContent/GoModalResetContent";
+import About from "./components/About";
 
 function App() {
   const { resetModal } = useSelector((state) => state.game);
@@ -15,11 +16,22 @@ function App() {
       {resetModal && (
         <GoModal Content={GoModalResetContent} close={dispatch}></GoModal>
       )}
-      <Routes>
-        <Route exact path="/" element={<Grid />}></Route>
-        <Route path="lol" element={<div>LOOL</div>} />
-        <Route path="/about" element={<Board />}></Route>
-      </Routes>
+      <main
+        style={{
+          width: "100%",
+          height: "100%",
+          paddingTop: "20px",
+          position: "absolute",
+          left: "3rem",
+        }}
+      >
+        <Routes>
+          <Route exact path="/" element={<Grid />}></Route>
+          <Route path="lol" element={<div>LOOL</div>} />
+          <Route path="/about" element={<About />}></Route>
+        </Routes>
+      </main>
+
       <Navbar></Navbar>
     </>
   );

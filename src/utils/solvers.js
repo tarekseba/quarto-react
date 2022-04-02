@@ -87,7 +87,6 @@ export const gameOverSolver = (grid, availablePiecesCount) => {
     const piece = grid[0][3].piece;
     let properties = constructProperties(piece);
     for (let i = 2; i >= 0; i--) {
-      console.log(i);
       if (grid[3 - i][i].occupied) {
         let currentProperties = constructProperties(grid[3 - i][i].piece);
         properties = properties.filter((property) =>

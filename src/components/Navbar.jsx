@@ -32,6 +32,7 @@ const Navbar = () => {
 
       <NavLink
         to="/"
+        onClick={() => setToggle(false)}
         className={`item__container ${
           location.pathname === "/" ? "selected" : ""
         }`}
@@ -52,7 +53,10 @@ const Navbar = () => {
       </NavLink>
       <a
         className={`item__container`}
-        onClick={() => dispatch(gameActions.setResetModal())}
+        onClick={() => {
+          dispatch(gameActions.setResetModal());
+          setToggle(false);
+        }}
       >
         <h6
           style={{
@@ -66,6 +70,7 @@ const Navbar = () => {
       </a>
       <NavLink
         to="/lol"
+        onClick={() => setToggle(false)}
         className={`item__container ${
           location.pathname === "/lol" ? "selected" : ""
         }`}
@@ -86,6 +91,7 @@ const Navbar = () => {
         <i className="fa-solid fa-vial icon"></i>
       </NavLink>
       <NavLink
+        onClick={() => setToggle(false)}
         to="/about"
         className={`item__container ${
           location.pathname === "/about" ? "selected" : ""
