@@ -46,7 +46,7 @@ const TargetCard = (props) => {
   return (
     <div
       className="target-card"
-      style={{ outline: isOver ? "2px solid green" : "none" }}
+      style={{ outline: isOver ? "4px solid rgb(84 255 89)" : "none" }}
       onDragEnter={onDragEnterHandler}
       onDragOver={onDragOverHandler}
       onDragLeave={onDragLeaveHandler}

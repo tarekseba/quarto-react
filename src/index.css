@@ -1,8 +1,18 @@
 @import url("https://fonts.googleapis.com/css?family=Noto+Sans&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
 
 * {
-  font-family: 'Press Start 2P', cursive;
+  font-family: "Press Start 2P", cursive;
+  list-style: none;
+}
+
+html {
+  overflow: hidden;
+}
+
+ul li {
+  margin: 0%;
+  padding: 0%;
 }
 
 body {
@@ -19,6 +29,7 @@ body {
 h5 {
   padding: 0;
   margin: 0;
+  line-height: 2;
 }
 
 h2 {

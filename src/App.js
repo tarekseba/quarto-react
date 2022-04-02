@@ -1,9 +1,19 @@
 import Grid from "./components/Grid";
-import "./App.css"
+import "./App.css";
+import Navbar from "./components/Navbar";
+import { Routes, Route } from "react-router-dom";
+import Board from "./components/Board";
 
 function App() {
   return (
-    <Grid></Grid>
+    <>
+      <Routes>
+        <Route exact path="/" element={<Grid/>}></Route>
+        <Route path="lol" element={<div>LOOL</div>}/>
+        <Route path="/about" element={<Board/>}></Route>
+      </Routes>
+      <Navbar></Navbar>
+    </>
   );
 }
 

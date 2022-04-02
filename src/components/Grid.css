@@ -13,14 +13,14 @@
   gap: 1rem;
 
   grid-template-areas:
-    "a  b  c  d"
-    "e  f  g  h"
-    "B  B  B  B"
-    "B  B  B  B"
-    "B  B  B  B"
-    "B  B  B  B"
-    "i  j  k  l"
-    "m  n  o  p";
+    " a  b  c  d "
+    " e  f  g  h "
+    " B  B  B  B "
+    " B  B  B  B "
+    " B  B  B  B "
+    " B  B  B  B "
+    " i  j  k  l "
+    " m  n  o  p ";
 
   grid-template-rows: repeat(8, 100px);
   grid-template-columns: repeat(4, 100px);
@@ -95,13 +95,6 @@
 
 .board {
   grid-area: B;
-  animation-delay: calc(9 * var(--stagger-delay));
-}
-
-.board {
-  background-color: transparent;
-  animation: cardEntrance 700ms ease-out;
-  animation-fill-mode: backwards;
 }
 
 .indicators__container {
