@@ -25,7 +25,7 @@
   box-shadow: 2px 2px 20px 5px rgba(0, 0, 0, 0.4),
     inset 0 0 20px 0px rgb(255 255 255 / 20%);
   filter: none;
-
+  animation: about_animation 300ms ease-in-out;
   --stagger-delay: 100ms;
 }
 
