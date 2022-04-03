@@ -15,7 +15,14 @@ const Navbar = () => {
   return (
     <div className={`nav ${toggle && "nav_toggled"}`}>
       <hr className="separator"></hr>
-      <div className="ball" style={{ top: ballTop }}></div>
+      <div
+        className="ball"
+        style={
+          location.pathname === "/about"
+            ? { top: "calc(100% - 50px)" }
+            : { top: ballTop }
+        }
+      ></div>
       <div className="nav__toggle__button">
         <h5
           style={{

@@ -37,11 +37,15 @@ const Grid = (props) => {
       ></HolderCard>
       <div className="indicators__container">
         <div className="indicator">
-          <h5 style={{ color: "white" }}>Choose piece</h5>
+          <h5 style={{ color: "white", fontStyle: "italic", textShadow: "0 0 5px #ff4400" }}>
+            Choose piece
+          </h5>
           <PlayIndicator checked={!game.chooseTurn}></PlayIndicator>
         </div>
         <div className="indicator">
-          <h5 style={{ color: "white" }}>Place piece</h5>
+          <h5 style={{ color: "white", fontStyle: "italic", textShadow: "0 0 5px #ff4400" }}>
+            Place piece
+          </h5>
           <PlayIndicator checked={!game.playTurn}></PlayIndicator>
         </div>
       </div>
