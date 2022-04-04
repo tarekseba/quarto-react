@@ -16,7 +16,7 @@
 .about__container > h1 {
   position: relative;
   width: fit-content;
-  text-shadow: 3px 2px 1px coral;
+  text-shadow: 3px 2px 1px var(--primary-color);
 }
 
 .about__container > h1::before {
@@ -27,7 +27,7 @@
   width: 100%;
   height: 3px;
   background-color: black;
-  box-shadow: 2px 1.5px 1px coral;
+  box-shadow: 2px 1.5px 1px var(--primary-color);
 }
 
 .about__container > p {
@@ -37,7 +37,7 @@
 
 .about__name {
   font-style: italic;
-  text-shadow: 0 0 5px coral;
+  text-shadow: 0 0 5px var(--primary-color);
 }
 
 .about__container > ul > li {

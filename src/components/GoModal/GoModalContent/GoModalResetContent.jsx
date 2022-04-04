@@ -32,7 +32,7 @@ const GoModalResetContent = () => {
           class="fa-solid fa-square-xmark"
           style={{
             color: "white",
-            filter: "drop-shadow(0 0 5px coral)",
+            filter: "drop-shadow(0 0 2px var(--primary-color))",
           }}
         ></i>
       </a>

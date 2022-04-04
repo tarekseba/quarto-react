@@ -1,7 +1,7 @@
 .piece {
   border: 4px solid;
   box-sizing: border-box;
-  filter: drop-shadow(0 0 5px coral);
+  filter: drop-shadow(0 0 2px var(--primary-color));
   transition: transform ease-in-out 200ms;
 }
 
@@ -16,11 +16,11 @@
 }
 
 .light {
-  border-color: rgb(255 110 110 / 90%);
+  border-color: var(--primary-color);
 }
 
 .dark {
-  border-color: rgb(255 110 110 / 90%);
+  border-color: var(--primary-color);
 }
 
 .full__light {

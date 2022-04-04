@@ -6,7 +6,7 @@ const HolderCard = (props) => {
     <div
       className="holder-card"
       style={{
-        animation: playTurn ? "pulse ease-in-out 800ms infinite" : "none",
+        animation: playTurn ? "pulse ease-in-out 1200ms infinite" : "none",
       }}
     >
       {placeholder.isHolding && (

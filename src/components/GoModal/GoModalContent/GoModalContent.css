@@ -19,7 +19,7 @@
 .modal__content > h2,
 .modal__content > h3 {
   color: white;
-  text-shadow: 0 0 10px coral;
+  text-shadow: 0 0 10px var(--primary-color);
 }
 
 h3 {
@@ -33,7 +33,7 @@ h3 {
   padding: 0.3rem 1.5rem;
   border: 3px #000000;
   border-style: solid;
-  text-shadow: 2px 2px 0px coral;
+  text-shadow: 2px 2px 0px var(--primary-color);
   color: black;
   background: white;
   transition: all 250ms ease-out;
