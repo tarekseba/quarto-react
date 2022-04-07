@@ -1,11 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./GoModalContent.css";
 import { gameActions } from "../../../store/game";
 
 const GoModalContent = () => {
   const dispatch = useDispatch();
   const resetHandler = () => {
-      console.log("resetHandler");
     dispatch(gameActions.resetGame());
   };
   return (

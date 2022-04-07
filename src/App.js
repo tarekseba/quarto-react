@@ -2,19 +2,35 @@ import Grid from "./components/Grid";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
-import Board from "./components/Board";
 import { useDispatch, useSelector } from "react-redux";
 import GoModal from "./components/GoModal/GoModal";
 import GoModalResetContent from "./components/GoModal/GoModalContent/GoModalResetContent";
 import About from "./components/About";
+import GoModalDifficulty from "./components/GoModal/GoModalContent/GoModalDifficulty";
+import { gameActions } from "./store/game";
 
 function App() {
-  const { resetModal } = useSelector((state) => state.game);
+  const { resetModal, difficultyModal, difficulty } = useSelector(
+    (state) => state.game
+  );
   const dispatch = useDispatch();
   return (
     <>
       {resetModal && (
-        <GoModal Content={GoModalResetContent} close={dispatch}></GoModal>
+        <GoModal
+          Content={GoModalResetContent}
+          close={dispatch}
+          action={gameActions.setResetModal}
+        ></GoModal>
+      )}
+      {difficultyModal && (
+        <GoModal
+          Content={GoModalDifficulty}
+          close={dispatch}
+          action={gameActions.setDifficultyModal}
+          difficulty={difficulty}
+          difficultyAction={gameActions.setDifficulty}
+        ></GoModal>
       )}
       <main
         style={{

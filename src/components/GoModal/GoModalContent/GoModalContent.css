@@ -45,6 +45,51 @@ h3 {
   transition: all 250ms ease-in;
 }
 
+.diff__container {
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.diff__container > div {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+}
+
+.diff__container > div:hover {
+  transform: scale(1.05) translateX(20px);
+}
+
+.diff__container > div > label {
+  color: white;
+  cursor: inherit;
+}
+
+.diff__container > div > input {
+  cursor: inherit;
+  color: #000000;
+  margin-top: auto;
+  margin-bottom: auto;
+  transition: all 250ms ease-in-out;
+}
+
+.diff__container > div:hover > label {
+  text-shadow: 0 0 10px var(--primary-color);
+}
+
+.diff__container > div:hover > input {
+  filter: drop-shadow(0 0 10px var(--primary-color));
+}
+
 @keyframes apparition {
   from {
     transform: translateY(10px);

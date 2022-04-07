@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { SHAPE, SIZE, COLOR } from "../utils/types";
+import { SHAPE, SIZE, COLOR, DIFFICULTY } from "../utils/types";
 import { gameOverSolver } from "../utils/solvers";
 
 const initialState = {
@@ -188,6 +188,8 @@ const initialState = {
   playTurn: true,
   gameOver: false,
   resetModal: false,
+  difficultyModal: false,
+  difficulty: DIFFICULTY.EASY,
   availablePiecesCount: 16,
 };
 
@@ -232,6 +234,14 @@ const gameSlice = createSlice({
     },
     setResetModal: (state) => {
       state.resetModal = !state.resetModal;
+      state.difficultyModal = false;
+    },
+    setDifficultyModal: (state) => {
+      state.difficultyModal = !state.difficultyModal;
+      state.resetModal = false;
+    },
+    setDifficulty: (state, action) => {
+      state.difficulty = action.payload;
     },
     decrementAvailablePiecesCount: (state) => {
       state.availablePiecesCount -= 1;

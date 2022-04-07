@@ -7,7 +7,6 @@ const Navbar = () => {
   const [toggle, setToggle] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location.pathname === "/");
   let ballTop = 70;
   if (location.pathname === "/lol") ballTop += 45 + 45;
   if (location.pathname === "/about") ballTop = 938;
@@ -75,28 +74,23 @@ const Navbar = () => {
         </h6>
         <i className="fa-solid fa-repeat icon"></i>
       </a>
-      <NavLink
-        to="/lol"
-        onClick={() => setToggle(false)}
-        className={`item__container ${
-          location.pathname === "/lol" ? "selected" : ""
-        }`}
-        style={({ isActive }) =>
-          isActive
-            ? { transform: "translateX(12px)", textDecoration: "none" }
-            : { textDecoration: "none" }
-        }
+      <a
+        className={`item__container`}
+        onClick={() => {
+          dispatch(gameActions.setDifficultyModal());
+          setToggle(false);
+        }}
       >
         <h6
           style={{
             opacity: toggle ? "1" : "0",
-            width: toggle ? "6.19rem" : "0px",
+            width: toggle ? "5.5rem" : "0px",
           }}
         >
           DIFFICULTY
         </h6>
         <i className="fa-solid fa-vial icon"></i>
-      </NavLink>
+      </a>
       <NavLink
         onClick={() => setToggle(false)}
         to="/about"

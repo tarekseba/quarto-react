@@ -1,22 +1,24 @@
 import "./GoModal.css";
 import { createPortal } from "react-dom";
-import { gameActions } from "../../store/game";
 
 const GoModal = (props) => {
-  const { left, Content, close } = props;
+  const { Content, close, action, difficulty, difficultyAction } = props;
   return createPortal(
     <div
       className="modal__wrapper"
-      style={{ left: left }}
       onClick={
         close
           ? (event) => {
-              close(gameActions.setResetModal());
+              close(action());
             }
           : null
       }
     >
-      <Content />
+      <Content
+        difficulty={difficulty}
+        dispatch={close}
+        difficultyAction={difficultyAction}
+      />
     </div>,
     document.body
   );

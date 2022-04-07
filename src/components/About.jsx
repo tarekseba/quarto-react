@@ -1,12 +1,11 @@
-import { COLOR, SHAPE, SIZE } from "../utils/types";
 import "./About.css";
-import Piece from "./Piece";
 const About = () => {
   return (
     <div className="about__container">
       <h1>RULES :</h1>
       <p>
-        Quarto is a board game for two players invented by Swiss mathematician{" "}
+        <span className="about__name">Quarto</span> is a board game for two
+        players invented by Swiss mathematician{" "}
         <span className="about__name">Blaise Müller</span>.<br></br>
         <br></br>
         It is published and copyrighted by{" "}
@@ -78,6 +77,7 @@ const About = () => {
         <a
           className="about__name"
           href="https://en.wikipedia.org/wiki/Quarto_(board_game)"
+          style={{ color: "rgb(125 204 171)" }}
         >
           Wikipedia
         </a>
