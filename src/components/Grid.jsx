@@ -11,7 +11,13 @@ const Grid = (props) => {
   const game = useSelector((state) => state.game);
   return (
     <div className="animated-grid">
-      {game.gameOver && <GoModal left="0px" Content={GoModalContent}></GoModal>}
+      {game.gameOver && (
+        <GoModal
+          left="0px"
+          Content={GoModalContent}
+          winner={game.winner}
+        ></GoModal>
+      )}
       {game.availablePieces.map((row, rowIndex) =>
         row.map((piece, columnIndex) => (
           <SourceCard
@@ -33,17 +39,29 @@ const Grid = (props) => {
       <Board></Board>
       <HolderCard
         placeholder={game.placeholder}
-        playTurn={/*game.playTurn*/ true}
+        playTurn={game.playTurn}
       ></HolderCard>
       <div className="indicators__container">
         <div className="indicator">
-          <h5 style={{ color: "#484848", fontStyle: "italic", textShadow: "0 0 5px var(--primary-color)" }}>
+          <h5
+            style={{
+              color: "#484848",
+              fontStyle: "italic",
+              textShadow: "0 0 5px var(--primary-color)",
+            }}
+          >
             Choose piece
           </h5>
           <PlayIndicator checked={!game.chooseTurn}></PlayIndicator>
         </div>
         <div className="indicator">
-          <h5 style={{ color: "#484848", fontStyle: "italic", textShadow: "0 0 5px var(--primary-color)" }}>
+          <h5
+            style={{
+              color: "#484848",
+              fontStyle: "italic",
+              textShadow: "0 0 5px var(--primary-color)",
+            }}
+          >
             Place piece
           </h5>
           <PlayIndicator checked={!game.playTurn}></PlayIndicator>

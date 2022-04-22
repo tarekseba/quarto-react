@@ -22,7 +22,7 @@ const TargetCard = (props) => {
   }, []);
   const onDropHandler = (event) => {
     event.preventDefault();
-    if (!occupied && /*playTurn*/ true && placeholder.isHolding) {
+    if (!occupied && playTurn && placeholder.isHolding) {
       dispatch(gameActions.setGridPiece({ column, row }));
       dispatch(gameActions.initPlaceholder());
       dispatch(gameActions.setPlayTurn(false));

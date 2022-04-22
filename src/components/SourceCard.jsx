@@ -6,11 +6,12 @@ const SourceCard = (props) => {
   const dispatch = useDispatch();
   const { column, row, piece, available, chooseTurn } = props;
   const dblckickHandler = () => {
-    if (chooseTurn) {
+    if (chooseTurn && available) {
       dispatch(gameActions.setPlaceholder({ isHolding: true, piece }));
       dispatch(gameActions.removeAvailablePiece({ column, row }));
       dispatch(gameActions.decrementAvailablePiecesCount());
       dispatch(gameActions.setChooseTurn(false));
+      setTimeout(dispatch, 0, gameActions.AIPlay());
     }
   };
   return (
