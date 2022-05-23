@@ -200,7 +200,7 @@ const initialState = {
   gameOver: false,
   resetModal: false,
   difficultyModal: false,
-  difficulty: DIFFICULTY.MEDIUM,
+  difficulty: DIFFICULTY.VHARD,
   availablePiecesCount: 16,
   winner: "",
 };
@@ -231,7 +231,11 @@ const gameSlice = createSlice({
         id: state.grid[row][column].id,
         piece: state.placeholder.piece,
       };
-      state.gameOver = gameOverSolver(state.grid, state.availablePiecesCount);
+      state.gameOver = gameOverSolver(
+        state.grid,
+        state.availablePiecesCount,
+        state.difficulty
+      );
       if (state.gameOver) state.winner = "You";
       //console.log(calculateHeuristic(state.placeholder.piece, state.grid));
       lineIsFull(row, state.grid);
@@ -247,10 +251,10 @@ const gameSlice = createSlice({
       state.placeholder = action.payload;
     },
     AIPlay: (state, action) => {
-      if (state.difficulty === DIFFICULTY.MEDIUM) {
+      if (state.difficulty !== DIFFICULTY.EASY) {
         //console.log("------------------------------------------------");
         const node = new TreeNode(1);
-        const depth = state.availablePiecesCount > 10 ? 2 : 3;
+        const depth = state.availablePiecesCount > 8 ? 2 : 4;
         console.log(depth + " DEPTH");
         node
           .setRoot()
@@ -260,7 +264,7 @@ const gameSlice = createSlice({
             state.availablePieces,
             state.availablePiecesCount
           )
-          .buildDescendants(depth);
+          .buildDescendants(depth, state.difficulty);
 
         console.log(node);
         let haha = node.negAlphaBeta(-Infinity, Infinity);
@@ -270,7 +274,11 @@ const gameSlice = createSlice({
           id: state.grid[haha.line][haha.col].id,
           piece: state.placeholder.piece,
         };
-        state.gameOver = gameOverSolver(state.grid, state.availablePiecesCount);
+        state.gameOver = gameOverSolver(
+          state.grid,
+          state.availablePiecesCount,
+          state.difficulty
+        );
         if (!state.gameOver) {
           state.placeholder = {
             isHolding: true,
@@ -281,6 +289,7 @@ const gameSlice = createSlice({
           state.playTurn = true;
         } else state.winner = "AI";
         console.log(haha);
+
       } else {
         const play = calculateHeuristic(state.placeholder.piece, state.grid);
         state.grid[play.line][play.col] = {

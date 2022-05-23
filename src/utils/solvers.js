@@ -1,4 +1,7 @@
+import { DIFFICULTY } from "./types";
+
 export const constructProperties = (piece) => {
+  if (piece === null) return [];
   let properties = [];
   properties.push(piece.size);
   properties.push(piece.shape);
@@ -7,7 +10,7 @@ export const constructProperties = (piece) => {
   return properties;
 };
 
-export const gameOverSolver = (grid, availablePiecesCount) => {
+export const gameOverSolver = (grid, availablePiecesCount, gameMode) => {
   if (availablePiecesCount === 0) return true;
   for (let i = 0; i < 4; i++) {
     if (grid[i][0].occupied) {
@@ -103,6 +106,90 @@ export const gameOverSolver = (grid, availablePiecesCount) => {
       return true;
     } else {
       //console.log("Game is still going!!");
+    }
+  }
+
+  if (
+    gameMode === DIFFICULTY.MEDIUM ||
+    gameMode === DIFFICULTY.HARD ||
+    gameMode === DIFFICULTY.VHARD
+  ) {
+    console.log("inside gameMode");
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        const piece = grid[i][j].piece;
+        if (piece) {
+          let properties = constructProperties(piece);
+          if (
+            properties.length > 0 &&
+            grid[i + 1][j].occupied &&
+            grid[i][j + 1].occupied &&
+            grid[i + 1][j + 1].occupied
+          ) {
+            properties = properties.filter(
+              (property) =>
+                constructProperties(grid[i + 1][j].piece).includes(property) &&
+                constructProperties(grid[i][j + 1].piece).includes(property) &&
+                constructProperties(grid[i + 1][j + 1].piece).includes(property)
+            );
+            if (properties.length > 0) return true;
+          }
+        }
+      }
+    }
+  }
+
+  if (gameMode === DIFFICULTY.HARD || gameMode === DIFFICULTY.VHARD) {
+    for (let i = 0; i < 2; i++) {
+      for (let j = 0; j < 2; j++) {
+        const piece = grid[i][j].piece;
+        if (piece) {
+          let properties = constructProperties(piece);
+
+          if (
+            properties.length > 0 &&
+            grid[i + 2][j].occupied &&
+            grid[i][j + 2].occupied &&
+            grid[i + 2][j + 2].occupied
+          ) {
+            properties = properties.filter(
+              (property) =>
+                constructProperties(grid[i + 2][j].piece).includes(property) &&
+                constructProperties(grid[i][j + 2].piece).includes(property) &&
+                constructProperties(grid[i + 2][j + 2].piece).includes(property)
+            );
+            if (properties.length > 0) return true;
+          }
+        }
+      }
+    }
+  }
+
+  if (gameMode === DIFFICULTY.VHARD) {
+    for (let i = 0; i < 2; i++) {
+      for (let j = 1; j < 3; j++) {
+        const piece = grid[i][j].piece;
+        if (piece) {
+          let properties = constructProperties(piece);
+
+          if (
+            properties.length > 0 &&
+            grid[i + 2][j].occupied &&
+            grid[i + 1][j + 1].occupied &&
+            grid[i + 1][j - 1].occupied
+          ) {
+            properties = properties.filter(
+              (property) =>
+                constructProperties(grid[i + 2][j].piece).includes(property) &&
+                constructProperties(grid[i + 1][j + 1].piece).includes(
+                  property
+                ) &&
+                constructProperties(grid[i + 1][j - 1].piece).includes(property)
+            );
+            if (properties.length > 0) return true;
+          }
+        }
+      }
     }
   }
   return false;
@@ -315,7 +402,6 @@ export const calculateHeuristic = (piece, grid) => {
     }
   return max;
 };
-
 
 export const colPlayHeuristic = (col, piece, grid) => {
   let emptySpots = 0;

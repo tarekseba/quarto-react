@@ -97,6 +97,36 @@ const GoModalDifficulty = (props) => {
             HARD
           </label>
         </div>
+        <div onClick={() => dispatch(difficultyAction(DIFFICULTY.VHARD))}>
+          <input
+            type="radio"
+            id="vhard"
+            name="difficulty"
+            style={
+              difficulty === DIFFICULTY.VHARD
+                ? {
+                    filter: "drop-shadow(0 0 10px var(--primary-color))",
+                  }
+                : null
+            }
+            value={DIFFICULTY.VHARD}
+            checked={difficulty === DIFFICULTY.VHARD}
+            onChange={(event) => event.preventDefault()}
+            onClick={() => dispatch(difficultyAction(DIFFICULTY.VHARD))}
+          ></input>{" "}
+          <label
+            htmlFor="vhard"
+            style={
+              difficulty === DIFFICULTY.VHARD
+                ? {
+                    textShadow: "0 0 10px var(--primary-color)",
+                  }
+                : null
+            }
+          >
+            VERY HARD
+          </label>
+        </div>
       </div>
     </div>
   );

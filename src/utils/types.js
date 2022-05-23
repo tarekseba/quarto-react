@@ -1,7 +1,5 @@
 import { constructProperties } from "./solvers";
 
-let val = -Infinity;
-
 export const SHAPE = {
   CIRCLE: "CIRCLE",
   SQUARE: "SQUARE",
@@ -21,6 +19,7 @@ export const DIFFICULTY = {
   EASY: "EASY",
   MEDIUM: "MEDIUM",
   HARD: "HARD",
+  VHARD: "VHARD",
 };
 
 class GamePiece {
@@ -48,23 +47,6 @@ class GamePiece {
 }
 
 export class TreeNode {
-  // constructor(
-  //   piece,
-  //   currentAvailablePieces,
-  //   currentAvailablePiecesCount,
-  //   grid,
-  //   line,
-  //   col
-  // ) {
-  //   this.piece = piece;
-  //   this.line = line;
-  //   this.col = col;
-  //   this.currentAvailablePieces = currentAvailablePieces;
-  //   this.currentAvailablePiecesCount = currentAvailablePiecesCount;
-  //   this.currentGrid = JSON.stringify(JSON.parse(grid));
-  //   this.currentGrid[line][col] = { occupied: true, piece: this.piece };
-  // }
-
   isRoot;
   isLeaf;
   isGameOver;
@@ -138,7 +120,7 @@ export class TreeNode {
   };
 
   // ORDER = 6
-  setGameOver = () => {
+  setGameOver = (difficulty) => {
     let properties = constructProperties(this.piece);
     for (let i = 0; i < 4; i++) {
       if (i === this.col) continue;
@@ -157,7 +139,6 @@ export class TreeNode {
     if (properties.length > 0) {
       this.isGameOver = true;
       return this;
-    } else {
     }
 
     properties = constructProperties(this.piece);
@@ -200,7 +181,6 @@ export class TreeNode {
       if (properties.length > 0) {
         this.isGameOver = true;
         return this;
-      } else {
       }
     }
 
@@ -223,7 +203,337 @@ export class TreeNode {
       if (properties.length > 0) {
         this.isGameOver = true;
         return this;
-      } else {
+      }
+    }
+
+    if (difficulty !== DIFFICULTY.EASY) {
+      let firstProperties = [];
+      let secondProperties = [];
+      let thirdProperties = [];
+      if (this.line > 0 && this.col > 0 && this.line < 3 && this.col < 3) {
+        properties = constructProperties(this.piece);
+
+        if (this.currentGrid[this.line][this.col + 1].occupied)
+          firstProperties = constructProperties(
+            this.currentGrid[this.line][this.col + 1].piece
+          );
+        if (this.currentGrid[this.line + 1][this.col].occupied)
+          secondProperties = constructProperties(
+            this.currentGrid[this.line + 1][this.col].piece
+          );
+        if (this.currentGrid[this.line + 1][this.col + 1].occupied)
+          thirdProperties = constructProperties(
+            this.currentGrid[this.line + 1][this.col + 1].piece
+          );
+
+        properties = properties.filter(
+          (property) =>
+            firstProperties.includes(property) &&
+            secondProperties.includes(property) &&
+            thirdProperties.includes(property)
+        );
+
+        if (properties.length > 0) {
+          this.isGameOver = true;
+          return this;
+        }
+
+        properties = constructProperties(this.piece);
+
+        firstProperties = [];
+        secondProperties = [];
+        thirdProperties = [];
+        if (this.currentGrid[this.line][this.col - 1].occupied)
+          firstProperties = constructProperties(
+            this.currentGrid[this.line][this.col - 1].piece
+          );
+
+        if (this.currentGrid[this.line - 1][this.col].occupied)
+          secondProperties = constructProperties(
+            this.currentGrid[this.line - 1][this.col].piece
+          );
+
+        if (this.currentGrid[this.line - 1][this.col - 1].occupied)
+          thirdProperties = constructProperties(
+            this.currentGrid[this.line - 1][this.col - 1].piece
+          );
+
+        properties = properties.filter(
+          (property) =>
+            firstProperties.includes(property) &&
+            secondProperties.includes(property) &&
+            thirdProperties.includes(property)
+        );
+
+        if (properties.length > 0) {
+          this.isGameOver = true;
+          return this;
+        }
+
+        properties = constructProperties(this.piece);
+
+        firstProperties = [];
+        secondProperties = [];
+        thirdProperties = [];
+        if (this.currentGrid[this.line][this.col + 1].occupied)
+          firstProperties = constructProperties(
+            this.currentGrid[this.line][this.col + 1].piece
+          );
+        if (this.currentGrid[this.line - 1][this.col].occupied)
+          secondProperties = constructProperties(
+            this.currentGrid[this.line - 1][this.col].piece
+          );
+        if (this.currentGrid[this.line - 1][this.col + 1].occupied)
+          thirdProperties = constructProperties(
+            this.currentGrid[this.line - 1][this.col + 1].piece
+          );
+
+        properties = properties.filter(
+          (property) =>
+            firstProperties.includes(property) &&
+            secondProperties.includes(property) &&
+            thirdProperties.includes(property)
+        );
+
+        if (properties.length > 0) {
+          this.isGameOver = true;
+          return this;
+        }
+
+        properties = constructProperties(this.piece);
+
+        firstProperties = [];
+        secondProperties = [];
+        thirdProperties = [];
+        if (this.currentGrid[this.line][this.col - 1].occupied)
+          firstProperties = constructProperties(
+            this.currentGrid[this.line][this.col - 1].piece
+          );
+        if (this.currentGrid[this.line + 1][this.col].occupied)
+          secondProperties = constructProperties(
+            this.currentGrid[this.line + 1][this.col].piece
+          );
+        if (this.currentGrid[this.line + 1][this.col - 1].occupied)
+          thirdProperties = constructProperties(
+            this.currentGrid[this.line + 1][this.col - 1].piece
+          );
+
+        properties = properties.filter(
+          (property) =>
+            firstProperties.includes(property) &&
+            secondProperties.includes(property) &&
+            thirdProperties.includes(property)
+        );
+
+        if (properties.length > 0) {
+          this.isGameOver = true;
+          return this;
+        }
+      }
+
+      if (this.line === 0 || this.line === 3) {
+        const line = this.line === 3 ? -1 : 1;
+        if (this.col < 3) {
+          properties = constructProperties(this.piece);
+
+          firstProperties = [];
+          secondProperties = [];
+          thirdProperties = [];
+          if (this.currentGrid[this.line][this.col + 1].occupied)
+            firstProperties = constructProperties(
+              this.currentGrid[this.line][this.col + 1].piece
+            );
+          if (this.currentGrid[this.line + line][this.col].occupied)
+            secondProperties = constructProperties(
+              this.currentGrid[this.line + line][this.col].piece
+            );
+          if (this.currentGrid[this.line + line][this.col + 1].occupied)
+            thirdProperties = constructProperties(
+              this.currentGrid[this.line + line][this.col + 1].piece
+            );
+
+          properties = properties.filter(
+            (property) =>
+              firstProperties.includes(property) &&
+              secondProperties.includes(property) &&
+              thirdProperties.includes(property)
+          );
+
+          if (properties.length > 0) {
+            this.isGameOver = true;
+            return this;
+          }
+        }
+
+        if (this.col > 0) {
+          properties = constructProperties(this.piece);
+
+          firstProperties = [];
+          secondProperties = [];
+          thirdProperties = [];
+          if (this.currentGrid[this.line][this.col - 1].occupied)
+            firstProperties = constructProperties(
+              this.currentGrid[this.line][this.col - 1].piece
+            );
+          if (this.currentGrid[this.line + line][this.col].occupied)
+            secondProperties = constructProperties(
+              this.currentGrid[this.line + line][this.col].piece
+            );
+          if (this.currentGrid[this.line + line][this.col - 1].occupied)
+            thirdProperties = constructProperties(
+              this.currentGrid[this.line + line][this.col - 1].piece
+            );
+
+          properties = properties.filter(
+            (property) =>
+              firstProperties.includes(property) &&
+              secondProperties.includes(property) &&
+              thirdProperties.includes(property)
+          );
+
+          if (properties.length > 0) {
+            this.isGameOver = true;
+            return this;
+          }
+        }
+
+        if (this.col === 0 || this.col === 3) {
+          const col = this.col === 3 ? -1 : 1;
+          if (this.line < 3) {
+            properties = constructProperties(this.piece);
+
+            firstProperties = [];
+            secondProperties = [];
+            thirdProperties = [];
+            if (this.currentGrid[this.line][this.col + col].occupied)
+              firstProperties = constructProperties(
+                this.currentGrid[this.line][this.col + col].piece
+              );
+            if (this.currentGrid[this.line + 1][this.col].occupied)
+              secondProperties = constructProperties(
+                this.currentGrid[this.line + 1][this.col].piece
+              );
+            if (this.currentGrid[this.line + 1][this.col + col].occupied)
+              thirdProperties = constructProperties(
+                this.currentGrid[this.line + 1][this.col + col].piece
+              );
+            properties = properties.filter(
+              (property) =>
+                firstProperties.includes(property) &&
+                secondProperties.includes(property) &&
+                thirdProperties.includes(property)
+            );
+
+            if (properties.length > 0) {
+              this.isGameOver = true;
+              return this;
+            }
+          }
+
+          if (this.line > 0) {
+            properties = constructProperties(this.piece);
+
+            firstProperties = [];
+            secondProperties = [];
+            thirdProperties = [];
+            if (this.currentGrid[this.line][this.col + col].occupied)
+              firstProperties = constructProperties(
+                this.currentGrid[this.line][this.col + col].piece
+              );
+            if (this.currentGrid[this.line - 1][this.col].occupied)
+              secondProperties = constructProperties(
+                this.currentGrid[this.line - 1][this.col].piece
+              );
+            if (this.currentGrid[this.line - 1][this.col + col].occupied)
+              thirdProperties = constructProperties(
+                this.currentGrid[this.line - 1][this.col + col].piece
+              );
+
+            properties = properties.filter(
+              (property) =>
+                firstProperties.includes(property) &&
+                secondProperties.includes(property) &&
+                thirdProperties.includes(property)
+            );
+
+            if (properties.length > 0) {
+              this.isGameOver = true;
+              return this;
+            }
+          }
+        }
+      }
+    }
+
+    if (difficulty === DIFFICULTY.HARD || difficulty === DIFFICULTY.VHARD) {
+      const line = this.line > 1 ? -2 : 2;
+      const col = this.col > 1 ? -2 : 2;
+
+      let firstProperties = [];
+      let secondProperties = [];
+      let thirdProperties = [];
+
+      properties = constructProperties(this.piece);
+
+      if (this.currentGrid[this.line][this.col + col].occupied)
+        firstProperties = constructProperties(
+          this.currentGrid[this.line][this.col + col].piece
+        );
+      if (this.currentGrid[this.line + line][this.col].occupied)
+        secondProperties = constructProperties(
+          this.currentGrid[this.line + line][this.col].piece
+        );
+      if (this.currentGrid[this.line + line][this.col + col].occupied)
+        thirdProperties = constructProperties(
+          this.currentGrid[this.line + line][this.col + col].piece
+        );
+
+      properties = properties.filter(
+        (property) =>
+          firstProperties.includes(property) &&
+          secondProperties.includes(property) &&
+          thirdProperties.includes(property)
+      );
+
+      if (properties.length > 0) {
+        this.isGameOver = true;
+        return this;
+      }
+    }
+
+    if (difficulty === DIFFICULTY.VHARD && this.col > 0 && this.col < 3) {
+      const line = this.line > 1 ? -2 : 2;
+      const col = this.col > 1 ? -2 : 2;
+
+      let firstProperties = [];
+      let secondProperties = [];
+      let thirdProperties = [];
+
+      properties = constructProperties(this.piece);
+
+      if (this.currentGrid[this.line][this.col + col].occupied)
+        firstProperties = constructProperties(
+          this.currentGrid[this.line][this.col + col].piece
+        );
+      if (this.currentGrid[this.line + line][this.col].occupied)
+        secondProperties = constructProperties(
+          this.currentGrid[this.line + line][this.col].piece
+        );
+      if (this.currentGrid[this.line + line][this.col + col].occupied)
+        thirdProperties = constructProperties(
+          this.currentGrid[this.line + line][this.col + col].piece
+        );
+
+      properties = properties.filter(
+        (property) =>
+          firstProperties.includes(property) &&
+          secondProperties.includes(property) &&
+          thirdProperties.includes(property)
+      );
+
+      if (properties.length > 0) {
+        this.isGameOver = true;
+        return this;
       }
     }
 
@@ -338,7 +648,7 @@ export class TreeNode {
   };
 
   // ORDER = 7
-  buildDescendants = (depth) => {
+  buildDescendants = (depth, difficulty) => {
     if (
       depth >= 1 &&
       !this.isGameOver &&
@@ -363,13 +673,13 @@ export class TreeNode {
                     .setPosition(line, col)
                     .setGrid(this.currentGrid)
                     .playMove()
-                    .setGameOver()
+                    .setGameOver(difficulty)
                     .setCurrentAvailablePieces(
                       availablePieces,
                       this.currentAvailablePiecesCount - 1
                     );
                   // if (!node.chosenPieceGameOverChecker()) {
-                  node.buildDescendants(depth - 1);
+                  node.buildDescendants(depth - 1, difficulty);
                   // } else {
                   // node.calculateHeuristic();
                   // }
@@ -381,12 +691,12 @@ export class TreeNode {
       }
     } else {
       this.isLeaf = true;
-      this.calculateHeuristic();
+      this.calculateHeuristic(difficulty);
       // this.chosenPieceGameOverChecker();
     }
   };
 
-  calculateHeuristic = () => {
+  calculateHeuristic = (difficulty) => {
     // LINE TEST
     let emptySpots = 1;
     let properties = constructProperties(this.piece);
@@ -431,7 +741,7 @@ export class TreeNode {
       emptySpots === 3 &&
       properties.length > 0 &&
       this.value >= 0 &&
-      this.value < 8
+      this.value < 12
     ) {
       if (this.value >= 5) this.value = this.value + 1;
       else this.value = 5;
@@ -464,7 +774,7 @@ export class TreeNode {
         emptySpots === 3 &&
         properties.length > 0 &&
         this.value >= 0 &&
-        this.value < 8
+        this.value < 12
       )
         if (this.value >= 5) this.value = this.value + 1;
         else this.value = 5;
@@ -495,13 +805,471 @@ export class TreeNode {
         emptySpots === 3 &&
         properties.length > 0 &&
         this.value >= 0 &&
-        this.value < 8
+        this.value < 12
       )
         if (this.value >= 5) this.value = this.value + 1;
         else this.value = 5;
       if ((properties.length === 0 || emptySpots === 4) && this.value === null)
         this.value = 0;
     }
+
+    if (difficulty !== DIFFICULTY.EASY) {
+      let firstProperties = [];
+      let secondProperties = [];
+      let thirdProperties = [];
+      if (this.line > 0 && this.col > 0 && this.line < 3 && this.col < 3) {
+        properties = constructProperties(this.piece);
+        emptySpots = 1;
+
+        if (this.currentGrid[this.line][this.col + 1].occupied)
+          firstProperties = constructProperties(
+            this.currentGrid[this.line][this.col + 1].piece
+          );
+        else emptySpots++;
+        if (this.currentGrid[this.line + 1][this.col].occupied)
+          secondProperties = constructProperties(
+            this.currentGrid[this.line + 1][this.col].piece
+          );
+        else emptySpots++;
+        if (this.currentGrid[this.line + 1][this.col + 1].occupied)
+          thirdProperties = constructProperties(
+            this.currentGrid[this.line + 1][this.col + 1].piece
+          );
+        else emptySpots++;
+
+        properties = properties.filter(
+          (property) =>
+            firstProperties.includes(property) &&
+            secondProperties.includes(property) &&
+            thirdProperties.includes(property)
+        );
+
+        if (emptySpots === 1 && properties.length > 0) {
+          console.log("WINNER");
+          this.value = 20;
+        }
+        if (emptySpots === 2 && properties.length > 0 && this.value !== 20)
+          this.value = -10;
+        if (
+          emptySpots === 3 &&
+          properties.length > 0 &&
+          this.value >= 0 &&
+          this.value < 12
+        )
+          if (this.value >= 5) this.value = this.value + 1;
+          else this.value = 5;
+        if (
+          (properties.length === 0 || emptySpots === 4) &&
+          this.value === null
+        )
+          this.value = 0;
+
+        properties = constructProperties(this.piece);
+        emptySpots = 1;
+
+        firstProperties = [];
+        secondProperties = [];
+        thirdProperties = [];
+        if (this.currentGrid[this.line][this.col - 1].occupied)
+          firstProperties = constructProperties(
+            this.currentGrid[this.line][this.col - 1].piece
+          );
+        else emptySpots++;
+        if (this.currentGrid[this.line - 1][this.col].occupied)
+          secondProperties = constructProperties(
+            this.currentGrid[this.line - 1][this.col].piece
+          );
+        else emptySpots++;
+        if (this.currentGrid[this.line - 1][this.col - 1].occupied)
+          thirdProperties = constructProperties(
+            this.currentGrid[this.line - 1][this.col - 1].piece
+          );
+        else emptySpots++;
+
+        properties = properties.filter(
+          (property) =>
+            firstProperties.includes(property) &&
+            secondProperties.includes(property) &&
+            thirdProperties.includes(property)
+        );
+
+        if (emptySpots === 1 && properties.length > 0) {
+          console.log("WINNER");
+          this.value = 20;
+        }
+        if (emptySpots === 2 && properties.length > 0 && this.value !== 20)
+          this.value = -10;
+        if (
+          emptySpots === 3 &&
+          properties.length > 0 &&
+          this.value >= 0 &&
+          this.value < 12
+        )
+          if (this.value >= 5) this.value = this.value + 1;
+          else this.value = 5;
+        if (
+          (properties.length === 0 || emptySpots === 4) &&
+          this.value === null
+        )
+          this.value = 0;
+
+        properties = constructProperties(this.piece);
+        emptySpots = 1;
+
+        firstProperties = [];
+        secondProperties = [];
+        thirdProperties = [];
+        if (this.currentGrid[this.line][this.col + 1].occupied)
+          firstProperties = constructProperties(
+            this.currentGrid[this.line][this.col + 1].piece
+          );
+        else emptySpots++;
+        if (this.currentGrid[this.line - 1][this.col].occupied)
+          secondProperties = constructProperties(
+            this.currentGrid[this.line - 1][this.col].piece
+          );
+        else emptySpots++;
+        if (this.currentGrid[this.line - 1][this.col + 1].occupied)
+          thirdProperties = constructProperties(
+            this.currentGrid[this.line - 1][this.col + 1].piece
+          );
+        else emptySpots++;
+
+        properties = properties.filter(
+          (property) =>
+            firstProperties.includes(property) &&
+            secondProperties.includes(property) &&
+            thirdProperties.includes(property)
+        );
+
+        if (emptySpots === 1 && properties.length > 0) {
+          if (this.line === 2 && this.col === 1) console.log("WINNER");
+          this.value = 20;
+        }
+        if (emptySpots === 2 && properties.length > 0 && this.value !== 20)
+          this.value = -10;
+        if (
+          emptySpots === 3 &&
+          properties.length > 0 &&
+          this.value >= 0 &&
+          this.value < 12
+        )
+          if (this.value >= 5) this.value = this.value + 1;
+          else this.value = 5;
+        if (
+          (properties.length === 0 || emptySpots === 4) &&
+          this.value === null
+        )
+          this.value = 0;
+
+        properties = constructProperties(this.piece);
+        emptySpots = 1;
+
+        firstProperties = [];
+        secondProperties = [];
+        thirdProperties = [];
+        if (this.currentGrid[this.line][this.col - 1].occupied)
+          firstProperties = constructProperties(
+            this.currentGrid[this.line][this.col - 1].piece
+          );
+        else emptySpots++;
+        if (this.currentGrid[this.line + 1][this.col].occupied)
+          secondProperties = constructProperties(
+            this.currentGrid[this.line + 1][this.col].piece
+          );
+        else emptySpots++;
+        if (this.currentGrid[this.line + 1][this.col - 1].occupied)
+          thirdProperties = constructProperties(
+            this.currentGrid[this.line + 1][this.col - 1].piece
+          );
+        else emptySpots++;
+
+        properties = properties.filter(
+          (property) =>
+            firstProperties.includes(property) &&
+            secondProperties.includes(property) &&
+            thirdProperties.includes(property)
+        );
+
+        if (emptySpots === 1 && properties.length > 0) {
+          console.log("WINNER");
+          this.value = 20;
+        }
+        if (emptySpots === 2 && properties.length > 0 && this.value !== 20)
+          this.value = -10;
+        if (
+          emptySpots === 3 &&
+          properties.length > 0 &&
+          this.value >= 0 &&
+          this.value < 12
+        )
+          if (this.value >= 5) this.value = this.value + 1;
+          else this.value = 5;
+        if (
+          (properties.length === 0 || emptySpots === 4) &&
+          this.value === null
+        )
+          this.value = 0;
+      }
+
+      if (this.line === 0 || this.line === 3) {
+        const line = this.line === 3 ? -1 : 1;
+        if (this.col < 3) {
+          properties = constructProperties(this.piece);
+          emptySpots = 1;
+
+          firstProperties = [];
+          secondProperties = [];
+          thirdProperties = [];
+          if (this.currentGrid[this.line][this.col + 1].occupied)
+            firstProperties = constructProperties(
+              this.currentGrid[this.line][this.col + 1].piece
+            );
+          else emptySpots++;
+          if (this.currentGrid[this.line + line][this.col].occupied)
+            secondProperties = constructProperties(
+              this.currentGrid[this.line + line][this.col].piece
+            );
+          else emptySpots++;
+          if (this.currentGrid[this.line + line][this.col + 1].occupied)
+            thirdProperties = constructProperties(
+              this.currentGrid[this.line + line][this.col + 1].piece
+            );
+          else emptySpots++;
+
+          properties = properties.filter(
+            (property) =>
+              firstProperties.includes(property) &&
+              secondProperties.includes(property) &&
+              thirdProperties.includes(property)
+          );
+
+          if (emptySpots === 1 && properties.length > 0) {
+            console.log("WINNER");
+            this.value = 20;
+          }
+          if (emptySpots === 2 && properties.length > 0 && this.value !== 20)
+            this.value = -10;
+          if (
+            emptySpots === 3 &&
+            properties.length > 0 &&
+            this.value >= 0 &&
+            this.value < 12
+          )
+            if (this.value >= 5) this.value = this.value + 1;
+            else this.value = 5;
+          if (
+            (properties.length === 0 || emptySpots === 4) &&
+            this.value === null
+          )
+            this.value = 0;
+        }
+
+        if (this.col > 0) {
+          properties = constructProperties(this.piece);
+          emptySpots = 1;
+
+          firstProperties = [];
+          secondProperties = [];
+          thirdProperties = [];
+          if (this.currentGrid[this.line][this.col - 1].occupied)
+            firstProperties = constructProperties(
+              this.currentGrid[this.line][this.col - 1].piece
+            );
+          else emptySpots++;
+          if (this.currentGrid[this.line + line][this.col].occupied)
+            secondProperties = constructProperties(
+              this.currentGrid[this.line + line][this.col].piece
+            );
+          else emptySpots++;
+          if (this.currentGrid[this.line + line][this.col - 1].occupied)
+            thirdProperties = constructProperties(
+              this.currentGrid[this.line + line][this.col - 1].piece
+            );
+          else emptySpots++;
+
+          properties = properties.filter(
+            (property) =>
+              firstProperties.includes(property) &&
+              secondProperties.includes(property) &&
+              thirdProperties.includes(property)
+          );
+
+          if (emptySpots === 1 && properties.length > 0) {
+            console.log("WINNER");
+            this.value = 20;
+          }
+          if (emptySpots === 2 && properties.length > 0 && this.value !== 20)
+            this.value = -10;
+          if (
+            emptySpots === 3 &&
+            properties.length > 0 &&
+            this.value >= 0 &&
+            this.value < 12
+          )
+            if (this.value >= 5) this.value = this.value + 1;
+            else this.value = 5;
+          if (
+            (properties.length === 0 || emptySpots === 4) &&
+            this.value === null
+          )
+            this.value = 0;
+        }
+      }
+
+      if (this.col === 0 || this.col === 3) {
+        const col = this.col === 3 ? -1 : 1;
+        if (this.line < 3) {
+          properties = constructProperties(this.piece);
+          emptySpots = 1;
+
+          firstProperties = [];
+          secondProperties = [];
+          thirdProperties = [];
+          if (this.currentGrid[this.line][this.col + col].occupied)
+            firstProperties = constructProperties(
+              this.currentGrid[this.line][this.col + col].piece
+            );
+          else emptySpots++;
+          if (this.currentGrid[this.line + 1][this.col].occupied)
+            secondProperties = constructProperties(
+              this.currentGrid[this.line + 1][this.col].piece
+            );
+          else emptySpots++;
+          if (this.currentGrid[this.line + 1][this.col + col].occupied)
+            thirdProperties = constructProperties(
+              this.currentGrid[this.line + 1][this.col + col].piece
+            );
+          else emptySpots++;
+
+          properties = properties.filter(
+            (property) =>
+              firstProperties.includes(property) &&
+              secondProperties.includes(property) &&
+              thirdProperties.includes(property)
+          );
+
+          if (emptySpots === 1 && properties.length > 0) {
+            console.log("WINNER");
+            this.value = 20;
+          }
+          if (emptySpots === 2 && properties.length > 0 && this.value !== 20)
+            this.value = -10;
+          if (
+            emptySpots === 3 &&
+            properties.length > 0 &&
+            this.value >= 0 &&
+            this.value < 12
+          )
+            if (this.value >= 5) this.value = this.value + 1;
+            else this.value = 5;
+          if (
+            (properties.length === 0 || emptySpots === 4) &&
+            this.value === null
+          )
+            this.value = 0;
+        }
+
+        if (this.line > 0) {
+          properties = constructProperties(this.piece);
+          emptySpots = 1;
+
+          firstProperties = [];
+          secondProperties = [];
+          thirdProperties = [];
+          if (this.currentGrid[this.line][this.col + col].occupied)
+            firstProperties = constructProperties(
+              this.currentGrid[this.line][this.col + col].piece
+            );
+          else emptySpots++;
+          if (this.currentGrid[this.line - 1][this.col].occupied)
+            secondProperties = constructProperties(
+              this.currentGrid[this.line - 1][this.col].piece
+            );
+          else emptySpots++;
+          if (this.currentGrid[this.line - 1][this.col + col].occupied)
+            thirdProperties = constructProperties(
+              this.currentGrid[this.line - 1][this.col + col].piece
+            );
+          else emptySpots++;
+
+          properties = properties.filter(
+            (property) =>
+              firstProperties.includes(property) &&
+              secondProperties.includes(property) &&
+              thirdProperties.includes(property)
+          );
+
+          if (emptySpots === 1 && properties.length > 0) {
+            console.log("WINNER");
+            this.value = 20;
+          }
+          if (emptySpots === 2 && properties.length > 0 && this.value !== 20)
+            this.value = -10;
+          if (
+            emptySpots === 3 &&
+            properties.length > 0 &&
+            this.value >= 0 &&
+            this.value < 12
+          )
+            if (this.value >= 5) this.value = this.value + 1;
+            else this.value = 5;
+          if (
+            (properties.length === 0 || emptySpots === 4) &&
+            this.value === null
+          )
+            this.value = 0;
+        }
+      }
+    }
+
+    if (difficulty !== DIFFICULTY.EASY && difficulty !== DIFFICULTY.MEDIUM) {
+      const line = this.line > 1 ? -2 : 2;
+      const col = this.col > 1 ? -2 : 2;
+
+      let firstProperties = [];
+      let secondProperties = [];
+      let thirdProperties = [];
+
+      properties = constructProperties(this.piece);
+      emptySpots = 1;
+      if (this.currentGrid[this.line][this.col + col].occupied)
+        firstProperties = constructProperties(
+          this.currentGrid[this.line][this.col + col].piece
+        );
+      else emptySpots++;
+      if (this.currentGrid[this.line + line][this.col].occupied)
+        secondProperties = constructProperties(
+          this.currentGrid[this.line + line][this.col].piece
+        );
+      else emptySpots++;
+      if (this.currentGrid[this.line + line][this.col + col].occupied)
+        thirdProperties = constructProperties(
+          this.currentGrid[this.line + line][this.col + col].piece
+        );
+      else emptySpots++;
+      properties = properties.filter(
+        (property) =>
+          firstProperties.includes(property) &&
+          secondProperties.includes(property) &&
+          thirdProperties.includes(property)
+      );
+
+      if (emptySpots === 1 && properties.length > 0) this.value = 20;
+      if (emptySpots === 2 && properties.length > 0 && this.value !== 20)
+        this.value = -10;
+      if (
+        emptySpots === 3 &&
+        properties.length > 0 &&
+        this.value >= 0 &&
+        this.value < 12
+      )
+        if (this.value >= 5) this.value = this.value + 1;
+        else this.value = 5;
+      if ((properties.length === 0 || emptySpots === 4) && this.value === null)
+        this.value = 0;
+    }
+
     this.value = this.player === -1 ? this.value * -1 : this.value;
     return this;
   };
