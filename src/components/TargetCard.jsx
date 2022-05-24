@@ -27,15 +27,6 @@ const TargetCard = (props) => {
       dispatch(gameActions.initPlaceholder());
       dispatch(gameActions.setPlayTurn(false));
       dispatch(gameActions.setChooseTurn(true));
-      // const id = event.dataTransfer.getData("id");
-      // const element = document.getElementById(id);
-      // if (element) {
-      //   setIsEmpty(false);
-      //   console.log("DROP HANDLER : " + id);
-      //   event.target.appendChild(element);
-      // } else {
-      //   setIsOver(false);
-      // }
     }
     setIsOver(false);
   };
